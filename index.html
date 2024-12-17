@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ponteiro Online</title>
+        <style>
+            html {
+                scroll-behavior: smooth;
+            }
+            [x-cloak] {
+                display: none !important;
+            }
+        </style>
+        <link rel="stylesheet" href="/src/output.css">
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+      </head>
+    <body>
+        <div class="fixed z-20 w-full" x-data="{ drop: false, aplicativo: false }">
+            <ul 
+                class="relative z-20 w-full h-20 bg-slate-200 flex items-center justify-around xl:justify-evenly border-2 lg:outline outline-2 outline-sky-700 lg:shadow-lg"        
+            >
+                <li><img class="h-12 xl:h-14 " src="src/assets/logo-ponteiro1.png" alt=""></li>
+                <div class="flex gap-5 xl:gap-10 items-center">
+                    <div class="hidden lg:flex gap-5 xl:gap-10 items-center relative">
+                        <li class="relative"><a class="text-cyan-700 text-lg py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300" href="#">Início</a></li>
+                        <li class="relative"><a class="text-cyan-700 text-lg py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300" href="#beneficios">Benefícios</a></li>
+                        <li class="relative"><a class="text-cyan-700 text-lg py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300" href="#recursos">Recursos</a></li>
+                        <li class="relative"><a class="text-cyan-700 text-lg py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300" href="#planos">Planos</a></li>
+                        <li class="relative"><a class="text-cyan-700 text-lg py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300" href="#legislacao">Legislação</a></li>
+                        <li class="relative" @click="aplicativo = !aplicativo" @click.outside="aplicativo = false">
+                            <span 
+                                class="cursor-pointer text-cyan-700 text-lg py-2 hover:text-amber-500 active:text-amber-700 transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300"
+                                >
+                                Aplicativo
+                            </span>
+                        </li>
+                        <li class="relative"><a class="text-cyan-700 text-lg py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300" href="#" @click.prevent>Vagas</a></li>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <li class="">
+                            <a class="flex items-center justify-center max-h-full text-amber-500 border border-amber-500 rounded gap-1 hover:text-white hover:bg-amber-500 transition-colors duration-300 active:bg-amber-700 active:border-amber-700 min-h-10 min-w-10 pr-0.5 lg:px-2" href="">
+                                <svg class="w-[18px] h-[18px] text-inherit" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2"/>
+                                </svg>
+                                <span class="hidden lg:block pb-[1.5px] font-medium pr-1">Painel</span>
+                            </a>
+                        </li>
+                        <li 
+                        class="flex lg:hidden items-center justify-center hover:cursor-pointer text-cyan-700 hover:text-amber-500 active:text-amber-700  border border-cyan-700 hover:border-amber-500 active:border-amber-700 rounded min-h-10 min-w-10"
+                        @click="drop = !drop"
+                        @click.outside="drop = false"
+                        >
+                            <svg class="w-8 h-8 text-inherit" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-width="1.1" d="M5 7h14M5 12h14M5 17h14"/>
+                            </svg>                                   
+                        </li>
+                    </div>
+                </div>
+            </ul>
+            <div 
+                class="lg:hidden absolute z-10 w-full transition duration-700 ease-in-out shadow-lg"
+                :class="drop ? 'translate-y-0' : '-translate-y-full'"
+                x-cloak
+                >
+                <ul class="flex flex-col items-center gap-5 pb-5 bg-slate-200 outline outline-2 outline-sky-700">
+                    <li class="relative w-min"><a class="text-cyan-700 text-lg font-normal py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300" href="#">Início</a></li>
+                    <li class="relative w-min"><a class="text-cyan-700 text-lg font-normal py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300" href="#beneficios">Benefícios</a></li>
+                    <li class="relative w-min"><a class="text-cyan-700 text-lg font-normal py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300" href="#recursos">Recursos</a></li>
+                    <li class="relative w-min"><a class="text-cyan-700 text-lg font-normal py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300" href="#planos">Planos</a></li>
+                    <li class="relative w-min"><a class="text-cyan-700 text-lg font-normal py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300" href="#legislacao">Legislação</a></li>
+                    <li class="relative" @click="aplicativo = !aplicativo" @click.outside="aplicativo = false">
+                        <span 
+                            class="cursor-pointer text-cyan-700 text-lg py-2 hover:text-amber-500 active:text-amber-700 transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300"
+                            >
+                            Aplicativo
+                        </span>
+                    </li>
+                    <li class="relative w-min"><a class="text-cyan-700 text-lg font-normal py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300" href="#" @click.prevent>Vagas</a></li>
+                    <li class="w-min">
+                        <a class="flex items-center justify-center max-h-full text-amber-500 border border-amber-500 active:border-amber-700 rounded gap-1 hover:text-white hover:bg-amber-500 active:bg-amber-700 transition-colors duration-300 min-h-10 min-w-10 px-1" href="">
+                            <svg class="w-[18px] h-[18px] text-inherit" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2"/>
+                            </svg>
+                            <span class="pb-[1.5px] font-medium pr-1">Painel</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div 
+              class="fixed inset-0 h-screen w-screen flex justify-center items-center z-20"
+              :class="!aplicativo && 'pointer-events-none'"
+              x-cloak
+              >
+              
+              <div 
+                  class="bg-white/5 size-full backdrop-blur-[1.5px] transition-opacity duration-1000"
+                  :class="aplicativo ? 'opacity-100' : 'opacity-0'"
+              >
+
+              </div>
+              <div 
+                  class="fixed w-auto flex flex-col gap-8 border rounded-lg border-slate-300 bg-white shadow-lg size-fit p-20 transition-transform duration-1000 pointer-events-auto"
+                  :class="!aplicativo && '-translate-y-[200%]'"
+                  >
+                  <p class="text-center text-2xl lg:text-4xl text-black font-semibold drop-shadow-md scroll-mt-20">Faça o download aqui!</p>
+                  <a href="">
+                      <img src="src/assets/aplicativo/googleplay.png" alt="">
+                  </a>
+                  <a href="">
+                      <img src="src/assets/aplicativo/appstore.png" alt="">
+                  </a>
+              </div>
+          </div>
+        </div>
+
+    </body>
+</html>
