@@ -1,117 +1,363 @@
 <!DOCTYPE html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Ponteiro Online</title>
-        <style>
-            html {
-                scroll-behavior: smooth;
-            }
-            [x-cloak] {
-                display: none !important;
-            }
-        </style>
-        <link rel="stylesheet" href="/src/output.css">
-        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-      </head>
-    <body>
-        <div class="fixed z-20 w-full" x-data="{ drop: false, aplicativo: false }">
-            <ul 
-                class="relative z-20 w-full h-20 bg-slate-200 flex items-center justify-around xl:justify-evenly border-2 lg:outline outline-2 outline-sky-700 lg:shadow-lg"        
-            >
-                <li><img class="h-12 xl:h-14 " src="src/assets/logo-ponteiro1.png" alt=""></li>
-                <div class="flex gap-5 xl:gap-10 items-center">
-                    <div class="hidden lg:flex gap-5 xl:gap-10 items-center relative">
-                        <li class="relative"><a class="text-cyan-700 text-lg py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300" href="#">Início</a></li>
-                        <li class="relative"><a class="text-cyan-700 text-lg py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300" href="#beneficios">Benefícios</a></li>
-                        <li class="relative"><a class="text-cyan-700 text-lg py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300" href="#recursos">Recursos</a></li>
-                        <li class="relative"><a class="text-cyan-700 text-lg py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300" href="#planos">Planos</a></li>
-                        <li class="relative"><a class="text-cyan-700 text-lg py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300" href="#legislacao">Legislação</a></li>
-                        <li class="relative" @click="aplicativo = !aplicativo" @click.outside="aplicativo = false">
-                            <span 
-                                class="cursor-pointer text-cyan-700 text-lg py-2 hover:text-amber-500 active:text-amber-700 transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300"
-                                >
-                                Aplicativo
-                            </span>
-                        </li>
-                        <li class="relative"><a class="text-cyan-700 text-lg py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300" href="#" @click.prevent>Vagas</a></li>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <li class="">
-                            <a class="flex items-center justify-center max-h-full text-amber-500 border border-amber-500 rounded gap-1 hover:text-white hover:bg-amber-500 transition-colors duration-300 active:bg-amber-700 active:border-amber-700 min-h-10 min-w-10 pr-0.5 lg:px-2" href="">
-                                <svg class="w-[18px] h-[18px] text-inherit" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2"/>
-                                </svg>
-                                <span class="hidden lg:block pb-[1.5px] font-medium pr-1">Painel</span>
-                            </a>
-                        </li>
-                        <li 
-                        class="flex lg:hidden items-center justify-center hover:cursor-pointer text-cyan-700 hover:text-amber-500 active:text-amber-700  border border-cyan-700 hover:border-amber-500 active:border-amber-700 rounded min-h-10 min-w-10"
-                        @click="drop = !drop"
-                        @click.outside="drop = false"
-                        >
-                            <svg class="w-8 h-8 text-inherit" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-width="1.1" d="M5 7h14M5 12h14M5 17h14"/>
-                            </svg>                                   
-                        </li>
-                    </div>
-                </div>
-            </ul>
-            <div 
-                class="lg:hidden absolute z-10 w-full transition duration-700 ease-in-out shadow-lg"
-                :class="drop ? 'translate-y-0' : '-translate-y-full'"
-                x-cloak
-                >
-                <ul class="flex flex-col items-center gap-5 pb-5 bg-slate-200 outline outline-2 outline-sky-700">
-                    <li class="relative w-min"><a class="text-cyan-700 text-lg font-normal py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300" href="#">Início</a></li>
-                    <li class="relative w-min"><a class="text-cyan-700 text-lg font-normal py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300" href="#beneficios">Benefícios</a></li>
-                    <li class="relative w-min"><a class="text-cyan-700 text-lg font-normal py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300" href="#recursos">Recursos</a></li>
-                    <li class="relative w-min"><a class="text-cyan-700 text-lg font-normal py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300" href="#planos">Planos</a></li>
-                    <li class="relative w-min"><a class="text-cyan-700 text-lg font-normal py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300" href="#legislacao">Legislação</a></li>
-                    <li class="relative" @click="aplicativo = !aplicativo" @click.outside="aplicativo = false">
-                        <span 
-                            class="cursor-pointer text-cyan-700 text-lg py-2 hover:text-amber-500 active:text-amber-700 transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300"
-                            >
-                            Aplicativo
-                        </span>
-                    </li>
-                    <li class="relative w-min"><a class="text-cyan-700 text-lg font-normal py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300" href="#" @click.prevent>Vagas</a></li>
-                    <li class="w-min">
-                        <a class="flex items-center justify-center max-h-full text-amber-500 border border-amber-500 active:border-amber-700 rounded gap-1 hover:text-white hover:bg-amber-500 active:bg-amber-700 transition-colors duration-300 min-h-10 min-w-10 px-1" href="">
-                            <svg class="w-[18px] h-[18px] text-inherit" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2"/>
-                            </svg>
-                            <span class="pb-[1.5px] font-medium pr-1">Painel</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div 
-              class="fixed inset-0 h-screen w-screen flex justify-center items-center z-20"
-              :class="!aplicativo && 'pointer-events-none'"
-              x-cloak
-              >
-              
-              <div 
-                  class="bg-white/5 size-full backdrop-blur-[1.5px] transition-opacity duration-1000"
-                  :class="aplicativo ? 'opacity-100' : 'opacity-0'"
-              >
 
-              </div>
-              <div 
-                  class="fixed w-auto flex flex-col gap-8 border rounded-lg border-slate-300 bg-white shadow-lg size-fit p-20 transition-transform duration-1000 pointer-events-auto"
-                  :class="!aplicativo && '-translate-y-[200%]'"
-                  >
-                  <p class="text-center text-2xl lg:text-4xl text-black font-semibold drop-shadow-md scroll-mt-20">Faça o download aqui!</p>
-                  <a href="">
-                      <img src="src/assets/aplicativo/googleplay.png" alt="">
-                  </a>
-                  <a href="">
-                      <img src="src/assets/aplicativo/appstore.png" alt="">
-                  </a>
-              </div>
-          </div>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ponteiro Online</title>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    [x-cloak] {
+      display: none !important;
+    }
+  </style>
+  <link rel="stylesheet" href="/src/output.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body>
+  <!-- barra de navegação -->
+  <div class="fixed z-20 w-full" x-data="{ drop: false, aplicativo: false }">
+    <ul
+      class="relative z-20 w-full h-20 bg-slate-200 flex items-center justify-around xl:justify-evenly border-2 lg:outline outline-2 outline-sky-700 lg:shadow-lg">
+      <li><img class="h-12 xl:h-14 " src="src/assets/logo-ponteiro1.png" alt=""></li>
+      <div class="flex gap-5 xl:gap-10 items-center">
+        <div class="hidden lg:flex gap-5 xl:gap-10 items-center relative">
+          <li class="relative"><a
+              class="text-cyan-700 text-lg py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300"
+              href="#">Início</a></li>
+          <li class="relative"><a
+              class="text-cyan-700 text-lg py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300"
+              href="#beneficios">Benefícios</a></li>
+          <li class="relative"><a
+              class="text-cyan-700 text-lg py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300"
+              href="#recursos">Recursos</a></li>
+          <li class="relative"><a
+              class="text-cyan-700 text-lg py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300"
+              href="#planos">Planos</a></li>
+          <li class="relative"><a
+              class="text-cyan-700 text-lg py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300"
+              href="#legislacao">Legislação</a></li>
+          <li class="relative" @click="aplicativo = !aplicativo" @click.outside="aplicativo = false">
+            <span
+              class="cursor-pointer text-cyan-700 text-lg py-2 hover:text-amber-500 active:text-amber-700 transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300">
+              Aplicativo
+            </span>
+          </li>
+          <li class="relative"><a
+              class="text-cyan-700 text-lg py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300"
+              href="#" @click.prevent>Vagas</a></li>
         </div>
+        <div class="flex items-center gap-3">
+          <li class="">
+            <a class="flex items-center justify-center max-h-full text-amber-500 border border-amber-500 rounded gap-1 hover:text-white hover:bg-amber-500 transition-colors duration-300 active:bg-amber-700 active:border-amber-700 min-h-10 min-w-10 pr-0.5 lg:px-2"
+              href="">
+              <svg class="w-[18px] h-[18px] text-inherit" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                  d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
+              </svg>
+              <span class="hidden lg:block pb-[1.5px] font-medium pr-1">Painel</span>
+            </a>
+          </li>
+          <li
+            class="flex lg:hidden items-center justify-center hover:cursor-pointer text-cyan-700 hover:text-amber-500 active:text-amber-700  border border-cyan-700 hover:border-amber-500 active:border-amber-700 rounded min-h-10 min-w-10"
+            @click="drop = !drop" @click.outside="drop = false">
+            <svg class="w-8 h-8 text-inherit" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+              height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-width="1.1" d="M5 7h14M5 12h14M5 17h14" />
+            </svg>
+          </li>
+        </div>
+      </div>
+    </ul>
+    <div class="lg:hidden absolute z-10 w-full transition duration-700 ease-in-out shadow-lg"
+      :class="drop ? 'translate-y-0' : '-translate-y-full'" x-cloak>
+      <ul class="flex flex-col items-center gap-5 pb-5 bg-slate-200 outline outline-2 outline-sky-700">
+        <li class="relative w-min"><a
+            class="text-cyan-700 text-lg font-normal py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300"
+            href="#">Início</a></li>
+        <li class="relative w-min"><a
+            class="text-cyan-700 text-lg font-normal py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300"
+            href="#beneficios">Benefícios</a></li>
+        <li class="relative w-min"><a
+            class="text-cyan-700 text-lg font-normal py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300"
+            href="#recursos">Recursos</a></li>
+        <li class="relative w-min"><a
+            class="text-cyan-700 text-lg font-normal py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300"
+            href="#planos">Planos</a></li>
+        <li class="relative w-min"><a
+            class="text-cyan-700 text-lg font-normal py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300"
+            href="#legislacao">Legislação</a></li>
+        <li class="relative" @click="aplicativo = !aplicativo" @click.outside="aplicativo = false">
+          <span
+            class="cursor-pointer text-cyan-700 text-lg py-2 hover:text-amber-500 active:text-amber-700 transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300">
+            Aplicativo
+          </span>
+        </li>
+        <li class="relative w-min"><a
+            class="text-cyan-700 text-lg font-normal py-2 hover:text-amber-500 active:text-amber-700  transition-colors duration-300 before:absolute before:h-px before:w-0 hover:before:w-full before:left-1/2 before:hover:left-0 before:top-8 before:bg-amber-500 before:active:bg-amber-700 before:transition-all before:duration-300"
+            href="#" @click.prevent>Vagas</a></li>
+        <li class="w-min">
+          <a class="flex items-center justify-center max-h-full text-amber-500 border border-amber-500 active:border-amber-700 rounded gap-1 hover:text-white hover:bg-amber-500 active:bg-amber-700 transition-colors duration-300 min-h-10 min-w-10 px-1"
+            href="">
+            <svg class="w-[18px] h-[18px] text-inherit" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+              height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2" />
+            </svg>
+            <span class="pb-[1.5px] font-medium pr-1">Painel</span>
+          </a>
+        </li>
+      </ul>
+    </div>
 
-    </body>
+    <!-- modal aplicativo -->
+    <div class="fixed inset-0 h-screen w-screen flex justify-center items-center z-20"
+      :class="!aplicativo && 'pointer-events-none'" x-cloak>
+
+      <div class="bg-white/5 size-full backdrop-blur-[1.5px] transition-opacity duration-1000"
+        :class="aplicativo ? 'opacity-100' : 'opacity-0'">
+
+      </div>
+      <div
+        class="fixed w-auto flex flex-col gap-8 border rounded-lg border-slate-300 bg-white shadow-lg size-fit p-20 transition-transform duration-1000 pointer-events-auto"
+        :class="!aplicativo && '-translate-y-[200%]'">
+        <p class="text-center text-2xl lg:text-4xl text-black font-semibold drop-shadow-md scroll-mt-20">Faça o download
+          aqui!</p>
+        <a href="">
+          <img src="src/assets/aplicativo/googleplay.png" alt="">
+        </a>
+        <a href="">
+          <img src="src/assets/aplicativo/appstore.png" alt="">
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- slides -->
+  <div class="flex items-center pt-20" x-data="{ 
+        slide: 1, 
+        interval: null, 
+        tempoMudarSlide() {
+            this.interval = setInterval(() => {
+                this.slide < 3 ? this.slide++ : this.slide = 1
+            }, 8000);
+        },
+        resetarTempoSlide() {
+            clearInterval(this.interval);
+            this.tempoMudarSlide();
+        }
+    }" x-init="tempoMudarSlide()">
+    <div class="transition-opacity duration-500 ease-in absolute" :class="slide != 1 && 'opacity-0'">
+      <img class="w-screen" src="src/assets/slide/slide1.jpg" alt="">
+      <div class="absolute top-[20%] md:top-[30%] left-[10%] flex flex-col w-[40%] lg:w-[30%] text-slate-100">
+        <span class="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-semibold pb-3">Baixo custo</span>
+        <span class="text-xs sm:text-base md:text-lg lg:text-xl xl:text-3xl">Livre de manutenção e não precisa de
+          equipamentos caros</span>
+      </div>
+    </div>
+    <div class="transition-opacity duration-500 ease-in absolute" :class="slide != 2 && 'opacity-0'" x-cloak>
+      <img class="w-screen" src="src/assets/slide/slide2.jpg" alt="">
+      <div class="absolute top-[20%] md:top-[30%] left-[10%] flex flex-col w-[40%] text-slate-100">
+        <span class="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-semibold pb-3">Relatórios</span>
+        <span class="text-xs sm:text-base md:text-lg lg:text-xl xl:text-3xl">Acompanhe as jornadas e horas extras</span>
+      </div>
+    </div>
+    <div class="transition-opacity duration-500 ease-in relative" :class="slide != 3 && 'opacity-0'" x-cloak>
+      <img class="w-screen" src="src/assets/slide/slide3.jpg" alt="">
+      <div class="absolute top-[20%] md:top-[30%] left-[10%] flex flex-col w-[40%] text-slate-100">
+        <span class="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-semibold pb-3">Transparência</span>
+        <span class="text-xs sm:text-base md:text-lg lg:text-xl xl:text-3xl">Comprovantes são enviados para cada
+          colaborador</span>
+      </div>
+    </div>
+
+    <div class="flex absolute w-full justify-between">
+      <div class="lg:p-3 cursor-pointer" @click="slide > 1 ? slide-- : slide = 3; resetarTempoSlide()">
+        <svg class="size-8 md:size-12 lg:size-16 xl:size-20 text-slate-200" aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+            d="m15 19-7-7 7-7" />
+        </svg>
+      </div>
+
+      <div class="lg:p-3 cursor-pointer" @click="slide < 3 ? slide++ : slide = 1; resetarTempoSlide()">
+        <svg class="size-8 md:size-12 lg:size-16 xl:size-20 text-slate-200" aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+            d="m9 5 7 7-7 7" />
+        </svg>
+      </div>
+    </div>
+  </div>
+  <!-- beneficios - video e cards -->
+  <div class="flex flex-col items-center bg-slate-100">
+    <div class="flex justify-center size-full p-8 bg-black">
+      <iframe class="h-[15rem] w-[27rem] md:h-[20rem] md:w-[36rem] pointer-events-auto"
+        src="https://www.youtube.com/embed/Leh8eDVJYhE?rel=0&controls=0&showinfo=0" frameborder="0">
+      </iframe>
+    </div>
+
+    <p class="text-2xl md:text-4xl text-cyan-700 drop-shadow-md pt-8 scroll-mt-20" id="beneficios">Benefícios</p>
+
+    <div class="flex gap-5 md:gap-8 flex-wrap justify-center pt-8 pb-16">
+      <div class="flex flex-wrap gap-5 md:gap-8 justify-center">
+        <div class="flex flex-col items-center w-72 2xl:w-80 border shadow bg-white">
+          <div class="overflow-hidden">
+            <img class="hover:scale-125 transition-transform duration-300 ease-out" src="/src/assets/cards/card1.jpg"
+              alt="">
+          </div>
+          <span class="text-lg md:text-2xl text-cyan-700 font-semibold py-3">Baixo custo</span>
+          <p class="text-center text-sm md:text-base text-slate-500 px-2 md:px-9 pb-4">
+            Gerencie seus colaboradores com um tablet e internet, sem técnicos ou equipamentos caros. <br /> Simples e
+            prático.
+          </p>
+        </div>
+        <div class="flex flex-col items-center w-72 2xl:w-80 border shadow bg-white">
+          <div class="overflow-hidden">
+            <img class="hover:scale-125 transition-transform duration-300 ease-out" src="/src/assets/cards/card2.jpg"
+              alt="">
+          </div>
+          <span class="text-lg md:text-2xl text-cyan-700 font-semibold py-3">Relatórios</span>
+          <p class="text-center text-sm md:text-base text-slate-500 px-2 md:px-9 pb-4">
+            Monitore as jornadas em tempo real, confira a assiduidade e, no fim do mês, o total de horas extras.
+          </p>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-5 md:gap-8 justify-center">
+        <div class="flex flex-col items-center w-72 2xl:w-80 border shadow bg-white">
+          <div class="overflow-hidden">
+            <img class="hover:scale-125 transition-transform duration-300 ease-out" src="/src/assets/cards/card3.jpg"
+              alt="">
+          </div>
+          <span class="text-lg md:text-2xl text-cyan-700 font-semibold py-3">Transparência</span>
+          <p class="text-center text-sm md:text-base text-slate-500 px-2 md:px-9 pb-4">
+            Ao bater o ponto, o colaborador recebe um e-mail com o horário e a foto capturada, confirmando o registro.
+          </p>
+        </div>
+        <div class="flex flex-col items-center w-72 2xl:w-80 border shadow bg-white">
+          <div class="overflow-hidden">
+            <img class="hover:scale-125 transition-transform duration-300 ease-out" src="/src/assets/cards/card4.jpg"
+              alt="">
+          </div>
+          <span class="text-lg md:text-2xl text-cyan-700 font-semibold py-3">Agilidade</span>
+          <p class="text-center text-sm md:text-base text-slate-500 px-2 md:px-9 pb-4">
+            Emita os espelhos de ponto de todos os colaboradores de uma vez e envie por e-mail ao contador ou imprima,
+            se preferir.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- recursos -->
+  <div class="flex flex-col items-center pb-16 bg-blue-100">
+    <p class="text-2xl md:text-4xl text-cyan-700 drop-shadow-md pt-8 scroll-mt-20" id="recursos">Recursos</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 pt-8 px-10 lg:px-36">
+      <div class="flex flex-col items-center">
+        <img class="w-24" src="src/assets/recursos/1onlineoffline.png" alt="">
+        <span class="text-xl md:text-2xl text-cyan-700 font-semibold py-3 text-center">Sincronização Automática</span>
+        <p class="text-sm lg:text-base text-center">Os pontos são sincronizados em tempo real. Se a conexão cair, eles
+          são salvos offline e sincronizados quando a internet voltar.</p>
+      </div>
+      <div class="flex flex-col items-center">
+        <img class="w-24" src="src/assets/recursos/2comprovante.png" alt="">
+        <span class="text-xl md:text-2xl text-cyan-700 font-semibold py-3 text-center">Envio de Comprovantes</span>
+        <p class="text-sm lg:text-base text-center">O colaborador recebe os comprovantes por e-mail e pode optar por um
+          relatório mensal ou visualizar as informações no painel.</p>
+      </div>
+      <div class="flex flex-col items-center">
+        <img class="w-24" src="src/assets/recursos/3horasextras.png" alt="">
+        <span class="text-xl md:text-2xl text-cyan-700 font-semibold py-3 text-center">Controle de Horas Extras</span>
+        <p class="text-sm lg:text-base text-center">Crie turnos de trabalho e registre as horas extras de todos os
+          colaboradores de maneira automática, sem complicações.</p>
+      </div>
+      <div class="flex flex-col items-center">
+        <img class="w-24" src="src/assets/recursos/4auditoria.png" alt="">
+        <span class="text-xl md:text-2xl text-cyan-700 font-semibold py-3 text-center">Auditoria de Marcação de
+          Ponto</span>
+        <p class="text-sm lg:text-base text-center">Em caso de suspeita de fraude, é possível revisar as fotos de cada
+          marcação de ponto diretamente pelo painel.</p>
+      </div>
+      <div class="flex flex-col items-center">
+        <img class="w-24" src="src/assets/recursos/5relatorios.png" alt="">
+        <span class="text-xl md:text-2xl text-cyan-700 font-semibold py-3 text-center">Relatórios Personalizados</span>
+        <p class="text-sm lg:text-base text-center">Os relatórios de ponto podem ser enviados diretamente ao contador,
+          facilitando o processo e evitando erros ou desinformações.</p>
+      </div>
+      <div class="flex flex-col items-center">
+        <img class="w-24" src="src/assets/recursos/6centralizacao.png" alt="">
+        <span class="text-xl md:text-2xl text-cyan-700 font-semibold py-3 text-center">Centralização de Filiais</span>
+        <p class="text-sm lg:text-base text-center">Gerencie os colaboradores de todas as filiais com um único usuário.
+          Não há custos adicionais para o uso de múltiplos tablets.</p>
+      </div>
+    </div>
+  </div>
+  <!-- planos -->
+  <div class="flex flex-col items-center pb-16 bg-blue-500">
+    <p class="text-2xl md:text-4xl text-white drop-shadow-md pt-8 scroll-mt-20" id="planos">Planos</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 lg:gap-24 pt-8 px-10">
+      <div class="flex flex-col items-center border border-white p-5 gap-2">
+        <span class="text-white text-lg lg:text-2xl font-semibold">PLANO START</span>
+        <span class="text-white text-lg lg:text-2xl">R$ 40,00</span>
+        <span class="text-sm text-white lg:text-base">ATÉ 5 COLABORADORES</span>
+        <button
+          class="text-base font-semibold text-white bg-amber-500 hover:bg-amber-600 active:bg-amber-700 transition-colors duration-300 mt-2 py-2 px-4 rounded-lg">Contratar</button>
+      </div>
+      <div class="flex flex-col items-center border border-white p-5 gap-2">
+        <span class="text-white text-lg lg:text-2xl font-semibold">PLANO 1</span>
+        <span class="text-white text-lg lg:text-2xl">R$ 7,50*</span>
+        <span class="text-sm text-white lg:text-base">DE 6 A 10 COLABORADORES</span>
+        <button
+          class="text-base font-semibold text-white bg-amber-500 hover:bg-amber-600 active:bg-amber-700 transition-colors duration-300 mt-2 py-2 px-4 rounded-lg">Contratar</button>
+      </div>
+      <div class="flex flex-col items-center border border-white p-5 gap-2">
+        <span class="text-white text-lg lg:text-2xl font-semibold">PLANO 2</span>
+        <span class="text-white text-lg lg:text-2xl">R$ 6,00</span>
+        <span class="text-sm text-white lg:text-base">DE 11 A 20 COLABORADORES</span>
+        <button
+          class="text-base font-semibold text-white bg-amber-500 hover:bg-amber-600 active:bg-amber-700 transition-colors duration-300 mt-2 py-2 px-4 rounded-lg">Contratar</button>
+      </div>
+      <div class="flex flex-col items-center border border-white p-5 gap-2">
+        <span class="text-white text-lg lg:text-2xl font-semibold">PLANO 3</span>
+        <span class="text-white text-lg lg:text-2xl">R$ 5,00</span>
+        <span class="text-sm text-white lg:text-base">DE 21 A 50 COLABORADORES</span>
+        <button
+          class="text-base font-semibold text-white bg-amber-500 hover:bg-amber-600 active:bg-amber-700 transition-colors duration-300 mt-2 py-2 px-4 rounded-lg">Contratar</button>
+      </div>
+      <div class="flex flex-col items-center border border-white p-5 gap-2">
+        <span class="text-white text-lg lg:text-2xl font-semibold">PLANO 4</span>
+        <span class="text-white text-lg lg:text-2xl">R$ 4,50</span>
+        <span class="text-sm text-white lg:text-base">DE 51 A 100 COLABORADORES</span>
+        <button
+          class="text-base font-semibold text-white bg-amber-500 hover:bg-amber-600 active:bg-amber-700 transition-colors duration-300 mt-2 py-2 px-4 rounded-lg">Contratar</button>
+      </div>
+      <div class="flex flex-col items-center border border-white p-5 gap-2">
+        <span class="text-white text-lg lg:text-2xl font-semibold">PERSONALIZADO</span>
+        <span class="text-white text-lg lg:text-2xl">PREÇO SOB CONSULTA</span>
+        <span class="text-sm text-white lg:text-base text-center">MAIS DE 100 COLABORADORES</span>
+        <button
+          class="text-base font-semibold text-white bg-amber-500 hover:bg-amber-600 active:bg-amber-700 transition-colors duration-300 mt-2 py-2 px-4 rounded-lg">Contratar</button>
+      </div>
+    </div>
+  </div>
+  <!-- legislacao -->
+  <div class="flex flex-col items-center py-16 bg-white gap-8">
+    <p class="text-center text-2xl lg:text-3xl text-black font-semibold drop-shadow-md scroll-mt-20" id="legislacao">
+      MINISTÉRIO DO TRABALHO E EMPREGO</p>
+    <p class="text-center text-base lg:text-lg text-slate-500 font-semibold">PORTARIA/MTP Nº 671, DE 8 DE NOVEMBRO DE
+      2021</p>
+    <p class="text-center text-base lg:text-lg">Portaria completa: <a
+        href="https://in.gov.br/en/web/dou/-/portaria-359094139"
+        class="text-sky-600 hover:text-sky-700 active:text-sky-900">clique aqui.</a></p>
+  </div>
+  <!-- rodape -->
+  <div class="bg-sky-700 flex justify-center py-10">
+    <p class="text-lg text-white font-semibold text-center px-5">Copyright &copy; 2025 - Ponteiro.online - Todos os
+      direitos reservados.</p>
+  </div>
+</body>
+
 </html>
